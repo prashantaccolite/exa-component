@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ContentChild, ElementRef, OnInit, Renderer2 } from '@angular/core';
 
 @Component({
   selector: 'app-child',
@@ -7,9 +7,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ChildComponent implements OnInit {
 
-  constructor() { }
+  @ContentChild('childcon') childPara!:ElementRef;
+
+  constructor(private rendrer: Renderer2) { }
 
   ngOnInit(): void {
+  }
+
+  ngAfterContentInit(){
+    // ngAfterContentInit
+    this.rendrer.setStyle(this.childPara.nativeElement, 'backgroundColor', 'red');
+    console.log('this.childPara', this.childPara);
   }
 
 }
